@@ -5811,6 +5811,9 @@ public final class Settings {
         @Readable
         public static final String LOCKSCREEN_BATTERY_INFO = "lockscreen_battery_info";
 
+        /** @hide */
+        public static final String BACK_GESTURE_HEIGHT = "back_gesture_height";
+
         /**
          * Whether to add top padding on statusbar
          * @hide
