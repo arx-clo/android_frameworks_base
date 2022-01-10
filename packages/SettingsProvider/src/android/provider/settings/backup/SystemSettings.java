@@ -92,5 +92,6 @@ public class SystemSettings {
         Settings.System.NETWORK_TRAFFIC_STATE,
         Settings.System.NETWORK_TRAFFIC_AUTOHIDE,
         Settings.System.LOCKSCREEN_BATTERY_INFO,
+        Settings.System.ENABLE_FLOATING_ROTATION_BUTTON,
     };
 }
