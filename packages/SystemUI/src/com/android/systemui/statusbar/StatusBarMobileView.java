@@ -62,7 +62,7 @@ public class StatusBarMobileView extends BaseStatusBarFrameLayout implements Dar
     private ImageView mIn;
     private ImageView mOut;
     private ImageView mMobile, mMobileType, mMobileRoaming;
-    private View mMobileTypeSpace, mMobileRoamingSpace;
+    private View mMobileRoamingSpace;
     private View mMobileSignalType;
     @StatusBarIconView.VisibleState
     private int mVisibleState = STATE_HIDDEN;
@@ -281,7 +281,6 @@ public class StatusBarMobileView extends BaseStatusBarFrameLayout implements Dar
             setMobileSignalWidth(true);
         }
         
-        mMobileTypeSpace.setVisibility(state.typeSpacerVisible ? View.VISIBLE : View.GONE);
         mMobile.setVisibility(state.showTriangle ? View.VISIBLE : View.GONE);
         mMobileRoaming.setVisibility(state.roaming ? View.VISIBLE : View.GONE);
         mMobileRoamingSpace.setVisibility(showRoamingSpace || state.roaming ? View.VISIBLE : View.GONE);

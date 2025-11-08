@@ -228,7 +228,6 @@ public class MobileSignalController extends SignalController<MobileState, Mobile
         };
         mImsMmTelManager = ImsMmTelManager.createForSubscriptionId(info.getSubscriptionId());
         mMobileStatusTracker = mobileStatusTrackerFactory.createTracker(mMobileCallback);
-        mTunerService = Dependency.get(TunerService.class);
 	    Handler mHandler = new Handler();
         SettingsObserver settingsObserver = new SettingsObserver(mHandler);
         settingsObserver.observe();

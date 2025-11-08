@@ -250,6 +250,7 @@ import javax.inject.Provider;
 import kotlin.Unit;
 import kotlinx.coroutines.CoroutineDispatcher;
 
+import com.android.systemui.tuner.TunerService;
 import com.android.systemui.island.IslandView;
 
 @CentralSurfacesComponent.CentralSurfacesScope
@@ -371,7 +372,7 @@ public final class NotificationPanelViewController implements Dumpable {
     private final QuickSettingsController mQsController;
     private final InteractionJankMonitor mInteractionJankMonitor;
     private final TouchHandler mTouchHandler = new TouchHandler();
-
+    private final TunerService mTunerService;   
     private long mDownTime;
     private boolean mTouchSlopExceededBeforeDown;
     private boolean mIsLaunchAnimationRunning;
@@ -765,6 +766,7 @@ public final class NotificationPanelViewController implements Dumpable {
             LockscreenToOccludedTransitionViewModel lockscreenToOccludedTransitionViewModel,
             @Main CoroutineDispatcher mainDispatcher,
             KeyguardTransitionInteractor keyguardTransitionInteractor,
+            TunerService tunerService,
             DumpManager dumpManager,
             KeyguardLongPressViewModel keyguardLongPressViewModel,
             KeyguardInteractor keyguardInteractor) {
@@ -857,6 +859,7 @@ public final class NotificationPanelViewController implements Dumpable {
         mKeyguardQsUserSwitchComponentFactory = keyguardQsUserSwitchComponentFactory;
         mKeyguardUserSwitcherComponentFactory = keyguardUserSwitcherComponentFactory;
         mFragmentService = fragmentService;
+        mTunerService = tunerService;
         mSettingsChangeObserver = new SettingsChangeObserver(handler);
         mSplitShadeEnabled =
                 LargeScreenUtils.shouldUseSplitNotificationShade(mResources);
@@ -4523,7 +4526,8 @@ public final class NotificationPanelViewController implements Dumpable {
         positionClockAndNotifications(true /* forceUpdate */);
     }
 
-    private final class ShadeAttachStateChangeListener implements View.OnAttachStateChangeListener {
+    private final class ShadeAttachStateChangeListener implements View.OnAttachStateChangeListener,
+        TunerService.Tunable {
         @Override
         public void onViewAttachedToWindow(View v) {
             mFragmentService.getFragmentHostManager(mView)
@@ -4553,10 +4557,7 @@ public final class NotificationPanelViewController implements Dumpable {
 
         @Override
         public void onTuningChanged(String key, String newValue) {
-            if (STATUS_BAR_QUICK_QS_PULLDOWN.equals(key)) {
-                mQsController.setOneFingerQsIntercept(
-                        TunerService.parseIntegerSwitch(newValue, true));
-            } else if (ISLAND_NOTIFICATION.equals(key)) {
+            if (ISLAND_NOTIFICATION.equals(key)) {
                 mUseIslandNotification = TunerService.parseIntegerSwitch(newValue, false);
                 mNotifIsland.setIslandEnabled(mUseIslandNotification);
             }

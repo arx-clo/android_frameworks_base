@@ -30,7 +30,7 @@ import android.net.Uri;
 import android.widget.Toast;
 
 import com.android.systemui.dagger.qualifiers.Background;
-import com.android.internal.util.arrow.Utils;
+import com.android.internal.util.custom.Utils;
 
 import java.util.concurrent.Executor;
 

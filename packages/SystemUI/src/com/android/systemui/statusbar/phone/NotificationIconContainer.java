@@ -48,6 +48,9 @@ import com.android.systemui.statusbar.notification.stack.ViewState;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.function.Consumer;
+import android.os.UserHandle;
+
+import android.provider.Settings;
 
 /**
  * A container for notification icons. It handles overflowing icons properly and positions them
